@@ -51,4 +51,9 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:https://github.com/FranzDeschler/Synchronization.git</connection>
+        <url>https://github.com/FranzDeschler/Synchronization</url>
+    </scm>
+
 </project>
