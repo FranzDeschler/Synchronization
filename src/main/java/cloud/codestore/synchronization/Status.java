@@ -5,9 +5,7 @@ import java.util.Set;
 
 /**
  * Represents the set of items which were present after the last synchronization.
- * It is used to determine whether an item was deleted or created.
- * <br/>
- * See <a href="https://unterwaditzer.net/2016/sync-algorithm.html">unterwaditzer.net</a>
+ * It is used to determine whether an item was deleted, created or updated.
  */
 public interface Status
 {
@@ -58,6 +56,8 @@ public interface Status
     /**
      * Saves this status.
      * This method is called as soon as the synchronization has been finished.
+     *
+     * @throws IOException if the status could not be saved.
      */
     void save() throws IOException;
 }

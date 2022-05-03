@@ -29,6 +29,8 @@ public interface ItemSet<I>
      * @param itemId the ID of an item.
      *
      * @return the etag of the corresponding item.
+     *
+     * @throws Exception if the etag could not be calculated.
      */
     String getEtag(String itemId) throws Exception;
     
@@ -38,6 +40,8 @@ public interface ItemSet<I>
      * @param itemId the id of the item which should be read.
      *
      * @return the item with the corresponding id.
+     *
+     * @throws Exception if the item could not be loaded.
      */
     I getItem(String itemId) throws Exception;
     
@@ -45,7 +49,9 @@ public interface ItemSet<I>
      * Adds the given item in this set.
      *
      * @param itemId the ID of the item.
-     * @param item the item which should be stored.
+     * @param item the item which should be saved.
+     *
+     * @throws Exception if the item could not be saved.
      */
     void addItem(String itemId, I item) throws Exception;
     
@@ -53,6 +59,8 @@ public interface ItemSet<I>
      * Deletes the item with the given id from this set.
      *
      * @param itemId the id of the item which should be deleted.
+     *
+     * @throws Exception if the item could not be deleted.
      */
     void delete(String itemId) throws Exception;
     
@@ -61,6 +69,8 @@ public interface ItemSet<I>
      *
      * @param itemId the id of the item.
      * @param item the new item which should replace the old one.
+     *
+     * @throws Exception if the item could not be updated.
      */
     void updateItem(String itemId, I item) throws Exception;
 }

@@ -14,6 +14,11 @@ public abstract class AbstractImmutableItemSet<I> implements ItemSet<I>
 {
     private final Set<String> itemsIDs;
     
+    /**
+     * Creates a new {@link ItemSet} which contains immutable items.
+     *
+     * @param itemIDs the IDs of the items.
+     */
     public AbstractImmutableItemSet(Set<String> itemIDs)
     {
         this.itemsIDs = Collections.synchronizedSet(itemIDs);

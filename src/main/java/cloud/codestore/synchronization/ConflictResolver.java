@@ -39,6 +39,8 @@ public abstract class ConflictResolver<I>
     
     /**
      * @return the item from {@link ItemSet} A.
+     *
+     * @throws Exception if the item could not be loaded.
      */
     public I getItemA() throws Exception
     {
@@ -47,6 +49,8 @@ public abstract class ConflictResolver<I>
     
     /**
      * @return the item from {@link ItemSet} B.
+     *
+     * @throws Exception if the item could not be loaded.
      */
     public I getItemB() throws Exception
     {
@@ -55,6 +59,8 @@ public abstract class ConflictResolver<I>
     
     /**
      * Reads the item from A and updates it on B.
+     *
+     * @throws Exception if the item could not be loaded from A or if it could not be updated in B.
      */
     public void applyItemA() throws Exception
     {
@@ -65,6 +71,8 @@ public abstract class ConflictResolver<I>
     
     /**
      * Reads the item from B and updates it on A.
+     *
+     * @throws Exception if the item could not be loaded from B or if it could not be updated in A.
      */
     public void applyItemB() throws Exception
     {
@@ -79,6 +87,8 @@ public abstract class ConflictResolver<I>
      *
      * @param item the item which should be stored on both sides.
      * @param etag the etag of the item.
+     *
+     * @throws Exception if the item could not be loaded or updated.
      */
     public void applyItem(I item, String etag) throws Exception
     {

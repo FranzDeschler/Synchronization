@@ -8,6 +8,11 @@ package cloud.codestore.synchronization;
  */
 public class ImmutableItemSynchronization<I> extends Synchronization<I>
 {
+    /**
+     * @param itemSetA an {@link ItemSet} which represents the items on side A.
+     * @param itemSetB an {@link ItemSet} which represents the items on side B.
+     * @param status the {@link Status} which represents the items which were present after the last synchronization.
+     */
     public ImmutableItemSynchronization(ItemSet<I> itemSetA, ItemSet<I> itemSetB, Status status)
     {
         super(itemSetA, itemSetB, status);

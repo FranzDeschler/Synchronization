@@ -47,8 +47,6 @@ public class CsvMutableItemStatus extends AbstractMutableItemStatus
      * @param file the file of the status.
      *
      * @return a {@link CsvMutableItemStatus} object.
-     *
-     * @throws IOException if the file could not be loaded.
      */
     public static CsvMutableItemStatus loadSilently(Path file)
     {

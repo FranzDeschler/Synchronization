@@ -15,6 +15,12 @@ public abstract class AbstractMutableItemSet<I> implements ItemSet<I>
 {
     private final Map<String, String> itemIdToEtagMap;
     
+    /**
+     * Creates a new {@link ItemSet} which contains mutable items.
+     *
+     * @param itemIdToEtagMap a map which contains the IDs of the items as key,
+     * and the etag of the corresponding item as value.
+     */
     public AbstractMutableItemSet(Map<String, String> itemIdToEtagMap)
     {
         this.itemIdToEtagMap = Collections.synchronizedMap(itemIdToEtagMap);

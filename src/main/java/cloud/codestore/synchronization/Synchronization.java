@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Abstract base class for synchronizing mutable or immutable items.
+ * @param <I> the type of an item.
+ */
 public abstract class Synchronization<I>
 {
     private final ItemSet<I> itemSetA;
@@ -14,6 +18,11 @@ public abstract class Synchronization<I>
     private ProgressListener progressListener = new DefaultProgressListener();
     private ItemProcessor itemProcessor = new DefaultItemProcessor(this, progressListener);
     
+    /**
+     * @param itemSetA an {@link ItemSet} which represents the items on side A.
+     * @param itemSetB an {@link ItemSet} which represents the items on side B.
+     * @param status the {@link Status} which represents the items which were present after the last synchronization.
+     */
     Synchronization(ItemSet<I> itemSetA, ItemSet<I> itemSetB, Status status)
     {
         Objects.requireNonNull(itemSetA, "The itemSet A must not be null");

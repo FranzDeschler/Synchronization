@@ -13,6 +13,11 @@ public abstract class AbstractImmutableItemStatus implements Status
 {
     private final Set<String> itemIDs;
     
+    /**
+     * Creates a new {@link Status} which contains immutable items.
+     *
+     * @param itemIDs the IDs of the items.
+     */
     public AbstractImmutableItemStatus(Set<String> itemIDs)
     {
         this.itemIDs = Collections.synchronizedSet(itemIDs);
