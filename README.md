@@ -31,6 +31,15 @@ In contrast, this implementation assumes that the etags are calculated homogeneo
 If the content of an item is equal on both sides, the etags must be equal too. 
 So, the `status` only contains one etag of an item instead of two.
 
+## Maven coordinates
+```xml
+<dependency>
+    <groupId>cloud.codestore</groupId>
+    <artifactId>synchronization</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
 ## Implementation
 The library uses two interfaces `ItemSet` and `Status` which represent the items present on each side
 and the items present after the last synchronization respectively.
