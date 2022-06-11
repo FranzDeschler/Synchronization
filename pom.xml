@@ -6,7 +6,7 @@
 
     <groupId>cloud.codestore</groupId>
     <artifactId>synchronization</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>Synchronization Library</name>

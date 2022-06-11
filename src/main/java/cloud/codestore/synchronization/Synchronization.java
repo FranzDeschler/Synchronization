@@ -16,7 +16,8 @@ public abstract class Synchronization<I>
     private final Status status;
     
     private ProgressListener progressListener = new DefaultProgressListener();
-    private ItemProcessor itemProcessor = new DefaultItemProcessor(this, progressListener);
+    private int threadCount;
+    private ItemProcessor itemProcessor;
     
     /**
      * @param itemSetA an {@link ItemSet} which represents the items on side A.
@@ -60,6 +61,7 @@ public abstract class Synchronization<I>
     public void synchronize(Set<String> itemIds)
     {
         Objects.requireNonNull(itemIds);
+        createItemProcessor();
         itemProcessor.process(itemIds);
     }
     
@@ -106,13 +108,7 @@ public abstract class Synchronization<I>
      */
     public void setThreadCount(int threadCount)
     {
-        if(threadCount < 0)
-            throw new IllegalArgumentException("Thread count cannot be less than 0");
-        
-        if(threadCount == 0)
-            itemProcessor = new DefaultItemProcessor(this, progressListener);
-        else
-            itemProcessor = new ConcurrentItemProcessor(this, progressListener, threadCount);
+        this.threadCount = threadCount;
     }
     
     private Set<String> getAllItemIds()
@@ -122,6 +118,14 @@ public abstract class Synchronization<I>
         result.addAll(getItemSetB().getItemIds());
         result.addAll(getStatus().getItemIds());
         return result;
+    }
+    
+    private void createItemProcessor()
+    {
+        if(threadCount <= 0)
+            itemProcessor = new DefaultItemProcessor(this, progressListener);
+        else
+            itemProcessor = new ConcurrentItemProcessor(this, progressListener, threadCount);
     }
     
     ItemSet<I> getItemSetA()
