@@ -6,11 +6,14 @@ package cloud.codestore.synchronization;
 class DefaultProgressListener implements ProgressListener
 {
     @Override
+    public void numberOfItems(int numberOfItems) {}
+
+    @Override
     public void synchronizationStarted(String itemId) {}
-    
+
     @Override
     public void synchronizationFinished(String itemId) {}
-    
+
     @Override
     public void synchronizationFailed(String itemId, Throwable exception) {}
 }

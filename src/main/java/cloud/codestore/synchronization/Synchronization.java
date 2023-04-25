@@ -62,6 +62,7 @@ public abstract class Synchronization<I>
     {
         Objects.requireNonNull(itemIds);
         createItemProcessor();
+        progressListener.numberOfItems(itemIds.size());
         itemProcessor.process(itemIds);
     }
     

@@ -6,6 +6,13 @@ package cloud.codestore.synchronization;
 public interface ProgressListener
 {
     /**
+     * Called before the first item is synchronized.
+     *
+     * @param numberOfItems the total number of items to be synchronized.
+     */
+    void numberOfItems(int numberOfItems);
+
+    /**
      * Called whenever the synchronization of an item started.
      *
      * @param itemId the ID of the corresponding item.
