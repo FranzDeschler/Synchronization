@@ -80,6 +80,9 @@ public class SynchronizationSetupTest
     private static class CustomProgressListener implements ProgressListener
     {
         @Override
+        public void numberOfItems(int numberOfItems) {}
+
+        @Override
         public void synchronizationStarted(String itemId) {}
     
         @Override

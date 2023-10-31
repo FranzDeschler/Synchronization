@@ -5,12 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,19 +49,21 @@ class DefaultItemProcessorTest
     @DisplayName("stops processing further items when cancelled")
     void stopProcessingOnCancel() throws Exception
     {
-        doAnswer(invocation -> {
-            if("3".equals(invocation.getArgument(0)))
-                itemProcessor.cancel();
-            return null;
+        doAnswer(new Answer()
+        {
+            private int count;
+
+            @Override
+            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
+                if (++count >= 3)
+                    itemProcessor.cancel();
+                return null;
+            }
         }).when(synchronization).synchronizeItem(anyString());
     
         itemProcessor.process(Set.of("1", "2", "3", "4", "5"));
         
         assertTrue(itemProcessor.isCanceled());
-        verify(synchronization).synchronizeItem("1");
-        verify(synchronization).synchronizeItem("2");
-        verify(synchronization).synchronizeItem("3");
-        verify(synchronization, never()).synchronizeItem("4");
-        verify(synchronization, never()).synchronizeItem("5");
+        verify(synchronization, times(3)).synchronizeItem(anyString());
     }
 }

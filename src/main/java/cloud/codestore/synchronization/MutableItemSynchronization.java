@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class MutableItemSynchronization<I> extends Synchronization<I>
 {
-    private ConflictResolver<I> conflictResolver;
+    private ConflictResolver<I> conflictResolver = new DefaultConflictResolver<>();
     
     /**
      * @param itemSetA an {@link ItemSet} which represents the items on side A.
@@ -142,9 +142,6 @@ public class MutableItemSynchronization<I> extends Synchronization<I>
     
     private void resolveConflict(String itemId, String etagA, String etagB) throws Exception
     {
-        if(conflictResolver == null)
-            throw new UnresolvedConflictException();
-        
         conflictResolver.setContext(itemId, etagA, etagB);
         conflictResolver.resolve(itemId, etagA, etagB);
     }
