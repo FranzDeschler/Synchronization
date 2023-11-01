@@ -12,8 +12,8 @@ import java.util.Set;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("The synchronization")
-class ProgressListenerTest
+@DisplayName("The item processor")
+class ItemProcessorTest
 {
     @Mock
     private ProgressListener progressListener;
@@ -27,7 +27,7 @@ class ProgressListenerTest
     {
         itemProcessor = new DefaultItemProcessor(synchronization, progressListener);
     }
-    
+
     @Test
     @DisplayName("calls progress listener when synchronization of an item starts")
     void callProgressListenerOnStart()

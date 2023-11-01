@@ -1,6 +1,5 @@
 package cloud.codestore.synchronization;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,10 +8,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.lang.reflect.Field;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("The Synchronization object")
-public class SynchronizationSetupTest
+class SynchronizationSetupTest
 {
     @Mock
     private ItemSet<Object> itemSetA;
@@ -30,26 +33,28 @@ public class SynchronizationSetupTest
     }
     
     @Test
-    @DisplayName("uses the DefaultItemProcessor and DefaultProgressListener by default")
+    @DisplayName("uses the default ItemProcessor and ProgressListener by default")
     void defaultItemProcessor() throws Exception
     {
         synchronization.synchronize();
         
         ItemProcessor itemProcessor = getItemProcessor();
-        Assertions.assertEquals(itemProcessor.getClass(), DefaultItemProcessor.class);
+        assertEquals(itemProcessor.getClass(), DefaultItemProcessor.class);
+        ProgressListener progressListener = getProgressListener(itemProcessor);
+        assertEquals(progressListener.getClass(), DefaultProgressListener.class);
     }
     
     @Test
-    @DisplayName("uses the CustomProgressListener")
+    @DisplayName("uses a custom ProgressListener")
     void defaultItemProcessorWithCustomProgressListener() throws Exception
     {
         synchronization.setProgressListener(new CustomProgressListener());
         synchronization.synchronize();
         
         ItemProcessor itemProcessor = getItemProcessor();
-        Assertions.assertEquals(itemProcessor.getClass(), DefaultItemProcessor.class);
+        assertEquals(itemProcessor.getClass(), DefaultItemProcessor.class);
         ProgressListener progressListener = getProgressListener(itemProcessor);
-        Assertions.assertEquals(progressListener.getClass(), CustomProgressListener.class);
+        assertEquals(progressListener.getClass(), CustomProgressListener.class);
     }
     
     @Test
@@ -60,9 +65,25 @@ public class SynchronizationSetupTest
         synchronization.synchronize();
     
         ItemProcessor itemProcessor = getItemProcessor();
-        Assertions.assertEquals(itemProcessor.getClass(), ConcurrentItemProcessor.class);
+        assertEquals(itemProcessor.getClass(), ConcurrentItemProcessor.class);
     }
-    
+
+    @Test
+    @DisplayName("passes the total number of items to the progress listener")
+    void callProgressListenerNrOfItems()
+    {
+        ProgressListener progressListener = mock(ProgressListener.class);
+
+        when(itemSetA.getItemIds()).thenReturn(Set.of("1", "2", "3"));
+        when(itemSetB.getItemIds()).thenReturn(Set.of("3", "4", "5"));
+        when(status.getItemIds()).thenReturn(Set.of("4", "5", "6"));
+
+        synchronization.setProgressListener(progressListener);
+        synchronization.synchronize();
+
+        verify(progressListener).numberOfItems(6);
+    }
+
     private ItemProcessor getItemProcessor() throws Exception
     {
         Field field = Synchronization.class.getDeclaredField("itemProcessor");
