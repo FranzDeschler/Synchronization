@@ -36,7 +36,7 @@ So, the `status` only contains one etag of an item instead of two.
 <dependency>
     <groupId>cloud.codestore</groupId>
     <artifactId>synchronization</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
