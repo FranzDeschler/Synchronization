@@ -34,9 +34,9 @@ class CsvMutableItemStatusTest
         private CsvMutableItemStatus status;
     
         @BeforeEach
-        void setUp() throws IOException
+        void setUp()
         {
-            status = CsvMutableItemStatus.load(file);
+            status = CsvMutableItemStatus.empty(file);
         }
     
         @Test

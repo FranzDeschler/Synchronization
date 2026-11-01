@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,16 +23,19 @@ public class CsvImmutableItemStatus extends AbstractImmutableItemStatus
     private CsvImmutableItemStatus(Set<String> itemIDs, Path file)
     {
         super(itemIDs);
+        Objects.requireNonNull(file);
         this.file = file;
     }
 
     /**
      * Creates an empty {@link CsvImmutableItemStatus} object.
      *
+     * @param file the file to write the status to.
+     *
      * @return a {@link CsvImmutableItemStatus} object.
      */
-    public static CsvImmutableItemStatus empty() {
-        return new CsvImmutableItemStatus(new HashSet<>(), null);
+    public static CsvImmutableItemStatus empty(Path file) {
+        return new CsvImmutableItemStatus(new HashSet<>(), file);
     }
     
     /**
@@ -64,7 +68,7 @@ public class CsvImmutableItemStatus extends AbstractImmutableItemStatus
         }
         catch(IOException e)
         {
-            return empty();
+            return empty(file);
         }
     }
     

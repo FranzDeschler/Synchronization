@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -22,16 +23,19 @@ public class CsvMutableItemStatus extends AbstractMutableItemStatus
     private CsvMutableItemStatus(Map<String, String> itemIdToEtagMap, Path file)
     {
         super(itemIdToEtagMap);
+        Objects.requireNonNull(file);
         this.file = file;
     }
 
     /**
      * Creates an empty {@link CsvMutableItemStatus} object.
      *
+     * @param file the file to write the status to.
+     *
      * @return a {@link CsvMutableItemStatus} object.
      */
-    public static CsvMutableItemStatus empty() {
-        return new CsvMutableItemStatus(new HashMap<>(), null);
+    public static CsvMutableItemStatus empty(Path file) {
+        return new CsvMutableItemStatus(new HashMap<>(), file);
     }
     
     /**
@@ -64,7 +68,7 @@ public class CsvMutableItemStatus extends AbstractMutableItemStatus
         }
         catch(IOException e)
         {
-            return empty();
+            return empty(file);
         }
     }
     

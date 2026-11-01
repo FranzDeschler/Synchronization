@@ -33,9 +33,9 @@ class CsvImmutableItemStatusTest
         private CsvImmutableItemStatus status;
     
         @BeforeEach
-        void setUp() throws IOException
+        void setUp()
         {
-            status = CsvImmutableItemStatus.load(file);
+            status = CsvImmutableItemStatus.empty(file);
         }
     
         @Test
