@@ -24,6 +24,15 @@ public class CsvImmutableItemStatus extends AbstractImmutableItemStatus
         super(itemIDs);
         this.file = file;
     }
+
+    /**
+     * Creates an empty {@link CsvImmutableItemStatus} object.
+     *
+     * @return a {@link CsvImmutableItemStatus} object.
+     */
+    public static CsvImmutableItemStatus empty() {
+        return new CsvImmutableItemStatus(new HashSet<>(), null);
+    }
     
     /**
      * Creates a new {@link CsvImmutableItemStatus} object which contains the data from the given file.
@@ -55,7 +64,7 @@ public class CsvImmutableItemStatus extends AbstractImmutableItemStatus
         }
         catch(IOException e)
         {
-            return new CsvImmutableItemStatus(new HashSet<>(), file);
+            return empty();
         }
     }
     

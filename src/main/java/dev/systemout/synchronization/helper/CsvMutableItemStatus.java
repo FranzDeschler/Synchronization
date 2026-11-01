@@ -24,6 +24,15 @@ public class CsvMutableItemStatus extends AbstractMutableItemStatus
         super(itemIdToEtagMap);
         this.file = file;
     }
+
+    /**
+     * Creates an empty {@link CsvMutableItemStatus} object.
+     *
+     * @return a {@link CsvMutableItemStatus} object.
+     */
+    public static CsvMutableItemStatus empty() {
+        return new CsvMutableItemStatus(new HashMap<>(), null);
+    }
     
     /**
      * Creates a new {@link CsvMutableItemStatus} object which contains the data from the given file.
@@ -55,7 +64,7 @@ public class CsvMutableItemStatus extends AbstractMutableItemStatus
         }
         catch(IOException e)
         {
-            return new CsvMutableItemStatus(new HashMap<>(), file);
+            return empty();
         }
     }
     
