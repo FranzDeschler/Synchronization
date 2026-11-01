@@ -17,6 +17,13 @@
         to synchronize code snippets.
     </description>
 
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
     <developers>
         <developer>
             <name>Franz Deschler</name>
