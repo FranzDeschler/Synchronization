@@ -5,16 +5,16 @@ by [Markus Unterwaditzer](https://unterwaditzer.net/2016/sync-algorithm.html) in
 It can be used by anyone who needs to add some kind of synchronization to their application.
 
 Originally, the code was part of the  [{CodeStore}](https://codestore.cloud) application which uses the algorithm
-to synchronize code snippets. Now it has been extracted to its own library to provide others the possibility to
-build their own synchronization.
+to synchronize code snippets. Now it has been extracted into its own library to give others the opportunity to
+create their own synchronization functionality.
 
 The implementation is completely independent of the kind of data which should be synchronized and where it is stored.
 The communication with external systems, as well as reading and writing data is done by the main application.
 
 ## How it works
 The algorithm synchronizes the items of two sides `A` and `B`.
-For each side, there is a set which contains the IDs of the items which are currently present on the corresponding side.
-Additionally, there is a third set which contains the IDs of the items which were present after the last synchronization.
+For each side, there is a set that contains the IDs of the items which are currently present on the corresponding side.
+Additionally, there is a third set that contains the IDs of the items which were present after the last synchronization.
 This set is used to determine whether an item was created or deleted on one side.
 
 To see how the algorithm works in detail, read [Markus Unterwaditzer´s blog](https://unterwaditzer.net/2016/sync-algorithm.html).
@@ -24,7 +24,7 @@ The library provides synchronization for immutable and mutable items.
 If the items are mutable, each set additionally contains a kind of checksum (called "etag") of each item
 which is used to determine whether the content of an item was changed on one or both sides.
 The etag is represented as String but can contain any kind of information (for example a version number) which represents 
-the content of an item. Usually an etag is a hash of the item´s content.
+the content of an item. Usually an etag is a hash of the item’s content.
 
 The original algorithm assumes that both sides `A` and `B` calculate the etag in different ways.
 In contrast, this implementation assumes that the etags are calculated homogeneously.
@@ -73,7 +73,7 @@ public class CustomRemoteItemSet extends AbstractImmutableItemSet<CustomItem> {
 ```java
 ItemSet<CustomItem> localItems = new CustomLocalItemSet(localItemIDs);
 ItemSet<CustomItem> remoteItems = new CustomRemoteItemSet(remoteItemIDs);
-Status status = new CsvImmutableItemStatus(Path.of("status.csv"));
+Status status = CsvImmutableItemStatus.load(Path.of("status.csv"));
 
 Synchronization<CustomItem> sync = new ImmutableItemSynchronization<>(localItems, remoteItems, status);
 sync.synchronize();
@@ -101,7 +101,7 @@ public class CustomRemoteItemSet extends AbstractMutableItemSet<CustomItem> {
 ```java
 ItemSet<CustomItem> localItems = new CustomLocalItemSet(localItemIDs);
 ItemSet<CustomItem> remoteItems = new CustomRemoteItemSet(remoteItemIDs);
-Status status = new CsvMutableItemStatus(Path.of("status.csv"));
+Status status = CsvMutableItemStatus.load(Path.of("status.csv"));
 
 Synchronization<CustomItem> sync = new MutableItemSynchronization<>(localItems, remoteItems, status);
 sync.synchronize();
