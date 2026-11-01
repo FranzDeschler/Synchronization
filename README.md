@@ -34,9 +34,9 @@ So, the `status` only contains one etag of an item instead of two.
 ## Maven coordinates
 ```xml
 <dependency>
-    <groupId>cloud.codestore</groupId>
+    <groupId>dev.systemout</groupId>
     <artifactId>synchronization</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
